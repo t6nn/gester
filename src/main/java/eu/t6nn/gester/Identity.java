@@ -1,6 +1,14 @@
 package eu.t6nn.gester;
 
+import eu.t6nn.gester.utils.MutableBitBuffer;
+
 public interface Identity {
 	
-	<T extends Variable> T getTrait(Class<T> traitType);
+	MutableBitBuffer encode();
+	
+	Identity clone(MutableBitBuffer newState);
+	
+	Variable getTrait(String name);
+	
+	int size();
 }

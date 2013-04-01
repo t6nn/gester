@@ -18,9 +18,9 @@ public interface Variable {
 	byte[] encode();
 
 	/**
-	 * Updates the state of the variable, given the encoded version of it.
+	 * Returns a clone of the variable, with a new state.
 	 * 
-	 * @param encoded
+	 * @param newState
 	 */
-	void decode(byte[] encoded);
+	Variable clone(byte[] newState);
 }
