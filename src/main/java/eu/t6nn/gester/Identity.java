@@ -11,4 +11,6 @@ public interface Identity {
 	Variable getTrait(String name);
 	
 	int size();
+
+	double cachedCost(TestCase source, long key);
 }

@@ -11,4 +11,6 @@ public interface Population {
 	Identity get(int i);
 	
 	void add(Identity id);
+	
+	void update();
 }

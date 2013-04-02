@@ -7,16 +7,19 @@ public class MutableBitBuffer {
 	private byte[] bytes;
 
 	private int size = 0;
+	
+	private int writePtr = 0;
 
 	public MutableBitBuffer(int size) {
 		bytes = new byte[size / 8 + 1];
+		this.size = size;
 	}
 
 	public void append(byte[] bytes, int numBits) {
 		for (int i = 0; i < numBits; ++i) {
-			set(size + i, (bytes[i / 8] >> (i % 8)) & 1);
+			set(writePtr + i, (bytes[i / 8] >> (i % 8)) & 1);
 		}
-		size += numBits;
+		writePtr += numBits;
 	}
 	
 	public byte[] getBytes() {
@@ -50,5 +53,41 @@ public class MutableBitBuffer {
 	public int size() {
 		return size;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder bits = new StringBuilder(size);
+		for(int i = 0; i < size; ++i) {
+			bits.append(get(size - i - 1));
+		}
+		return bits.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(bytes);
+		result = prime * result + size;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MutableBitBuffer other = (MutableBitBuffer) obj;
+		if (!Arrays.equals(bytes, other.bytes))
+			return false;
+		if (size != other.size)
+			return false;
+		return true;
+	}
+	
+	
 
 }

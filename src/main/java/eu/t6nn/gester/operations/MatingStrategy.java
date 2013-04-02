@@ -1,8 +1,10 @@
 package eu.t6nn.gester.operations;
 
-import eu.t6nn.gester.Population;
+import java.util.Collection;
+
+import eu.t6nn.gester.Identity;
 
 public interface MatingStrategy {
 	
-	void mate(Population population);
+	Collection<Identity> mate(Identity id1, Identity id2);
 }

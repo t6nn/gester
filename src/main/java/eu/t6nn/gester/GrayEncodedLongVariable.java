@@ -3,22 +3,21 @@ package eu.t6nn.gester;
 import eu.t6nn.gester.utils.ByteUtils;
 import eu.t6nn.gester.utils.GrayCode;
 
-
 public class GrayEncodedLongVariable implements Variable {
-	
+
 	private static final int VAR_SIZE = 64;
 	private final long minVal;
 	private final long maxVal;
-	private long normalizedValue;
+	private long value;
 
 	public GrayEncodedLongVariable(long minVal, long maxVal) {
 		assert maxVal - minVal < Long.MAX_VALUE : "Value range cannot exceed Long.MAX_VALUE";
 		this.minVal = minVal;
 		this.maxVal = maxVal;
 	}
-	
+
 	public long getValue() {
-		return minVal + normalizedValue;
+		return minVal + Math.abs(GrayCode.fromBinary(value) % (maxVal - minVal + 1));
 	}
 
 	@Override
@@ -28,16 +27,15 @@ public class GrayEncodedLongVariable implements Variable {
 
 	@Override
 	public byte[] encode() {
-		return ByteUtils.toBytes(GrayCode.toBinary(normalizedValue));
+		return ByteUtils.toBytes(value);
 	}
 
 	@Override
 	public GrayEncodedLongVariable clone(byte[] newState) {
-		GrayEncodedLongVariable var = new GrayEncodedLongVariable(minVal, maxVal);
-		
-		long value = GrayCode.fromBinary(ByteUtils.toLong(newState));
-		var.normalizedValue = Math.abs(value % (maxVal - minVal + 1));
-		
+		GrayEncodedLongVariable var = new GrayEncodedLongVariable(minVal,
+				maxVal);
+		var.value = ByteUtils.toLong(newState);
+
 		return var;
 	}
 
@@ -47,8 +45,7 @@ public class GrayEncodedLongVariable implements Variable {
 		int result = 1;
 		result = prime * result + (int) (maxVal ^ (maxVal >>> 32));
 		result = prime * result + (int) (minVal ^ (minVal >>> 32));
-		result = prime * result
-				+ (int) (normalizedValue ^ (normalizedValue >>> 32));
+		result = prime * result + (int) (value ^ (value >>> 32));
 		return result;
 	}
 
@@ -65,10 +62,9 @@ public class GrayEncodedLongVariable implements Variable {
 			return false;
 		if (minVal != other.minVal)
 			return false;
-		if (normalizedValue != other.normalizedValue)
+		if (value != other.value)
 			return false;
 		return true;
 	}
-	
-	
+
 }

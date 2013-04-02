@@ -32,4 +32,15 @@ public class MutableBitBufferTest {
 			Assert.assertEquals(buffer.get(i), 0);
 		}
 	}
+	
+	@Test
+	public void testRange() {
+		MutableBitBuffer buffer = new MutableBitBuffer(25); // 4 bytes
+		for(int i = 0; i < 25; ++i) {
+			buffer.set(i, 1);
+		}
+		
+		byte[] range = buffer.range(5, 3);
+		Assert.assertEquals(range, new byte[]{7});
+	}
 }

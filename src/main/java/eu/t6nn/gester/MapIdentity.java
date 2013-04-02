@@ -11,6 +11,9 @@ public class MapIdentity implements Identity {
 	private OrderedMap traits = new LinkedMap();
 	private int totalSize = 0;
 
+	private double cachedCost = 0.0D;
+	private long cacheKey = -1;
+
 	@SuppressWarnings("unchecked")
 	public void addTrait(String name, Variable trait) {
 		traits.put(name, trait);
@@ -35,7 +38,7 @@ public class MapIdentity implements Identity {
 	}
 
 	@Override
-	public MapIdentity clone(MutableBitBuffer newState) {
+	public Identity clone(MutableBitBuffer newState) {
 		MapIterator it = traits.mapIterator();
 		MapIdentity identity = new MapIdentity();
 		int ptr = 0;
@@ -54,6 +57,15 @@ public class MapIdentity implements Identity {
 	@Override
 	public int size() {
 		return totalSize;
+	}
+
+	@Override
+	public double cachedCost(TestCase source, long key) {
+		if (cacheKey != key || cacheKey == -1) {
+			cachedCost = source.calculateCost(this);
+			cacheKey = key;
+		}
+		return cachedCost;
 	}
 
 }
