@@ -7,17 +7,17 @@ import java.util.Random;
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.Population;
 
-public class RankWeightedRandomSelection implements SelectionStrategy {
+public class RankWeightedRandomPairing implements PairingStrategy {
 
 	private Random random = new Random();
 	private double keepRatio;
 	
-	public RankWeightedRandomSelection(double keepRatio) {
+	public RankWeightedRandomPairing(double keepRatio) {
 		this.keepRatio = keepRatio;
 	}
 	
 	@Override
-	public Queue<Identity> select(Population population, int pairCount) {
+	public Queue<Identity> pair(Population population, int pairCount) {
 		int keep = (int)((double)population.size() * keepRatio);
 
 		Queue<Identity> ids = new LinkedList<>();
