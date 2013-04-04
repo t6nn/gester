@@ -8,7 +8,5 @@ public interface TestCase {
 	
 	double test(Identity identity);
 	
-	Identity newIdentity();
-	
 	Process tick(Population pop);
 }

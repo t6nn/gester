@@ -2,7 +2,7 @@ package eu.t6nn.gester.utils;
 
 import java.util.Arrays;
 
-public class MutableBitBuffer {
+public class MutableBitBuffer implements Cloneable {
 
 	private byte[] bytes;
 
@@ -88,6 +88,12 @@ public class MutableBitBuffer {
 		return true;
 	}
 	
-	
+	@Override
+	public MutableBitBuffer clone() {
+		MutableBitBuffer clone = new MutableBitBuffer(size);
+		clone.writePtr = this.writePtr;
+		clone.bytes = Arrays.copyOf(bytes, bytes.length);
+		return clone;
+	}
 
 }

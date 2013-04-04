@@ -6,10 +6,14 @@ import org.testng.annotations.Test;
 import eu.t6nn.gester.variables.GrayEncodedIntegerVariable;
 
 public class GesterTest {
+	
 	@Test
 	public void testOneVariableMinimizer() {
 
 		final Gaussian dist = new Gaussian(555, 0.2);
+		
+		MapIdentityDef def = new MapIdentityDef();
+		def.addTrait("var", new GrayEncodedIntegerVariable(0, 10000));
 
 		TestCase test = new TestCase() {
 
@@ -27,13 +31,6 @@ public class GesterTest {
 			}
 
 			@Override
-			public Identity newIdentity() {
-				MapIdentity id = new MapIdentity();
-				id.addTrait("var", new GrayEncodedIntegerVariable(0, 10000));
-				return id;
-			}
-
-			@Override
 			public Process tick(Population pop) {
 				System.out.println("Iteration " + (++iteration) + " - best: "
 						+ val(pop.get(0)));
@@ -45,7 +42,7 @@ public class GesterTest {
 
 		};
 
-		Gester.test(test).run();
+		Gester.test(test, def).run();
 	}
 
 	@Test
@@ -53,6 +50,12 @@ public class GesterTest {
 
 		final int N = 10;
 		final Gaussian dist = new Gaussian(555, 100);
+		
+		MapIdentityDef id = new MapIdentityDef();
+		for (int i = 0; i < N; i++) {
+			id.addTrait("var" + i,
+					new GrayEncodedIntegerVariable(500, 600));
+		}
 
 		TestCase test = new TestCase() {
 
@@ -80,16 +83,6 @@ public class GesterTest {
 			}
 
 			@Override
-			public Identity newIdentity() {
-				MapIdentity id = new MapIdentity();
-				for (int i = 0; i < N; i++) {
-					id.addTrait("var" + i,
-							new GrayEncodedIntegerVariable(400, 700));
-				}
-				return id;
-			}
-
-			@Override
 			public Process tick(Population pop) {
 				Identity best = pop.get(0);
 				iteration++;
@@ -105,7 +98,7 @@ public class GesterTest {
 				}
 				
 				for (long val : val(best)) {
-					if(Math.abs(val - 555) > 20) {
+					if(Math.abs(val - 555) > 10) {
 						return Process.CONTINUE;
 					}
 				}
@@ -114,7 +107,7 @@ public class GesterTest {
 
 		};
 
-		Gester.test(test).run();
+		Gester.test(test, id).run();
 	}
 
 }

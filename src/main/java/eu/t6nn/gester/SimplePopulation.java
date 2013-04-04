@@ -25,9 +25,9 @@ public class SimplePopulation implements Population {
 
 	private TestCase testCase;
 
-	public SimplePopulation(TestCase testCase, int populationSize, int threadPoolSize) {
+	public SimplePopulation(TestCase testCase, IdentityDef idDef, int populationSize, int threadPoolSize) {
 		this.testCase = testCase;
-		this.idSize = testCase.newIdentity().encode().size();
+		this.idSize = idDef.size();
 
 		if(threadPoolSize == 1) {
 			this.populationPool = Executors.newSingleThreadExecutor();

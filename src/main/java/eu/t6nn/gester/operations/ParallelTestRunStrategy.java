@@ -27,9 +27,9 @@ public class ParallelTestRunStrategy implements TestRunStrategy {
 	}
 	
 	private Population initializePopulation(Gester gester) {
-		Population pop = new SimplePopulation(gester.getTestCase(), populationSize, poolSize);
+		Population pop = new SimplePopulation(gester.getTestCase(), gester.getIdentityDef(), populationSize, poolSize);
 		for(int i = 0; i < populationSize; ++i) {
-			pop.add(gester.getInitializationStrategy().initialize(gester.getTestCase()));
+			pop.add(gester.getInitializationStrategy().initialize(gester.getIdentityDef()));
 		}
 		return pop;
 	}

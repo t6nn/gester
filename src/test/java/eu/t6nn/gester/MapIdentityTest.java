@@ -11,25 +11,27 @@ public class MapIdentityTest {
 	
 	@Test
 	public void testInitialization() {
-		MapIdentity identity = new MapIdentity();
+		MapIdentityDef identityDef = new MapIdentityDef();
 		
 		GrayEncodedIntegerVariable var1 = new GrayEncodedIntegerVariable(0, 2);
 		GrayEncodedIntegerVariable var2 = new GrayEncodedIntegerVariable(0, 100);
 		
-		identity.addTrait("var1", var1);
-		identity.addTrait("var2", var2);
+		identityDef.addTrait("var1", var1);
+		identityDef.addTrait("var2", var2);
 		
+		MapIdentity identity = new MapIdentity(identityDef);
 		Assert.assertEquals(identity.getTrait("var1"), var1);
 		Assert.assertEquals(identity.getTrait("var2"), var2);
 	}
 	
 	@Test
 	public void testClone() {
-		MapIdentity identity = new MapIdentity();
+		MapIdentityDef idDef = new MapIdentityDef();
 		
 		GrayEncodedIntegerVariable var1 = new GrayEncodedIntegerVariable(0, 2);
-		identity.addTrait("var1", var1);
+		idDef.addTrait("var1", var1);
 		
+		MapIdentity identity = new MapIdentity(idDef);
 		MutableBitBuffer buf = identity.encode();
 		for(int i = 0; i < buf.size(); ++i) {
 			buf.set(i, 1);

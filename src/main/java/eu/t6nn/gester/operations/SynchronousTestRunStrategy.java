@@ -19,9 +19,9 @@ public class SynchronousTestRunStrategy implements TestRunStrategy {
 	}
 	
 	private Population initializePopulation(Gester gester) {
-		Population pop = new SimplePopulation(gester.getTestCase(), populationSize, 1);
+		Population pop = new SimplePopulation(gester.getTestCase(), gester.getIdentityDef(), populationSize, 1);
 		for(int i = 0; i < populationSize; ++i) {
-			pop.add(gester.getInitializationStrategy().initialize(gester.getTestCase()));
+			pop.add(gester.getInitializationStrategy().initialize(gester.getIdentityDef()));
 		}
 		return pop;
 	}

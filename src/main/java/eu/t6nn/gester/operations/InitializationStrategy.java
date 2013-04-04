@@ -1,8 +1,8 @@
 package eu.t6nn.gester.operations;
 
 import eu.t6nn.gester.Identity;
-import eu.t6nn.gester.TestCase;
+import eu.t6nn.gester.IdentityDef;
 
 public interface InitializationStrategy {
-	Identity initialize(TestCase testCase);
+	Identity initialize(IdentityDef idDef);
 }

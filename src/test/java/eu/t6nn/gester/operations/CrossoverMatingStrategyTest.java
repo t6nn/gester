@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.MapIdentity;
+import eu.t6nn.gester.MapIdentityDef;
 import eu.t6nn.gester.utils.MutableBitBuffer;
 import eu.t6nn.gester.variables.GrayEncodedIntegerVariable;
 
@@ -23,8 +24,10 @@ public class CrossoverMatingStrategyTest {
 	}
 	
 	private void verify(MatingStrategy str) {
-		MapIdentity blank = new MapIdentity();
-		blank.addTrait("v1", new GrayEncodedIntegerVariable(0, 10));
+		MapIdentityDef def = new MapIdentityDef();
+		def.addTrait("v1", new GrayEncodedIntegerVariable(0, 10));
+		
+		MapIdentity blank = new MapIdentity(def);
 
 		Identity id1 = blank.clone(blank.encode()); // all bits should be 0;
 		MutableBitBuffer ones = blank.encode();
