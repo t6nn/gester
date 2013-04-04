@@ -71,5 +71,10 @@ public class GrayEncodedIntegerVariable implements Variable {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return String.valueOf(getValue());
+	}
 
 }

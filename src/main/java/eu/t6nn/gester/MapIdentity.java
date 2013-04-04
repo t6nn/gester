@@ -22,24 +22,19 @@ public class MapIdentity implements Identity {
 
 	@Override
 	public Variable getTrait(String name) {
+		return (Variable) decode().get(name);
+	}
+	
+	private Map<String, Variable> decode() {
 		if(decodeCache == null) {
 			decodeCache = idDef.decode(encoded);
 		}
-		return (Variable) decodeCache.get(name);
+		return decodeCache;
 	}
 
 	@Override
 	public MutableBitBuffer encode() {
 		return encoded;
-//		
-//		MapIterator it = traits.mapIterator();
-//		MutableBitBuffer bits = new MutableBitBuffer(totalSize);
-//		while (it.hasNext()) {
-//			it.next();
-//			Variable value = (Variable) it.getValue();
-//			bits.append(value.encode(), value.size());
-//		}
-//		return bits;
 	}
 
 	@Override
@@ -62,6 +57,11 @@ public class MapIdentity implements Identity {
 			cacheKey = testRun;
 		}
 		return cachedCost;
+	}
+	
+	@Override
+	public String toString() {
+		return decode().toString();
 	}
 
 }

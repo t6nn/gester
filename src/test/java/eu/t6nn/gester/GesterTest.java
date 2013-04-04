@@ -33,7 +33,7 @@ public class GesterTest {
 			@Override
 			public Process tick(Population pop) {
 				System.out.println("Iteration " + (++iteration) + " - best: "
-						+ val(pop.get(0)));
+						+ pop.get(0));
 				if (Math.abs(val(pop.get(0)) - 555) < 2) {
 					return Process.STOP;
 				}
@@ -90,9 +90,7 @@ public class GesterTest {
 					StringBuilder msg = new StringBuilder("Iteration ");
 					msg.append(iteration);
 					msg.append(" - best: ");
-					for (long val : val(best)) {
-						msg.append(val).append(" ");
-					}
+					msg.append(best);
 					System.out.println(msg);
 					lastBest = best;
 				}
