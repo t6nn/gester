@@ -3,6 +3,8 @@ package eu.t6nn.gester;
 import org.apache.commons.math3.analysis.function.Gaussian;
 import org.testng.annotations.Test;
 
+import eu.t6nn.gester.variables.GrayEncodedIntegerVariable;
+
 public class GesterTest {
 	@Test
 	public void testOneVariableMinimizer() {
@@ -14,12 +16,12 @@ public class GesterTest {
 			private int iteration = 0;
 
 			@Override
-			public double calculateCost(Identity identity) {
+			public double test(Identity identity) {
 				return -100 * dist.value(val(identity));
 			}
 
 			private long val(Identity identity) {
-				GrayEncodedLongVariable var = (GrayEncodedLongVariable) identity
+				GrayEncodedIntegerVariable var = (GrayEncodedIntegerVariable) identity
 						.getTrait("var");
 				return var.getValue();
 			}
@@ -27,7 +29,7 @@ public class GesterTest {
 			@Override
 			public Identity newIdentity() {
 				MapIdentity id = new MapIdentity();
-				id.addTrait("var", new GrayEncodedLongVariable(0, 10000));
+				id.addTrait("var", new GrayEncodedIntegerVariable(0, 10000));
 				return id;
 			}
 
@@ -49,7 +51,7 @@ public class GesterTest {
 	@Test
 	public void testNVariableMinimizer() {
 
-		final int N = 5;
+		final int N = 10;
 		final Gaussian dist = new Gaussian(555, 100);
 
 		TestCase test = new TestCase() {
@@ -58,7 +60,7 @@ public class GesterTest {
 			private Identity lastBest = null;
 
 			@Override
-			public double calculateCost(Identity identity) {
+			public double test(Identity identity) {
 				double cost = 1d;
 				for (long val : val(identity)) {
 					cost *= dist.value(val);
@@ -69,7 +71,7 @@ public class GesterTest {
 			private long[] val(Identity identity) {
 				long[] values = new long[N];
 				for (int i = 0; i < N; i++) {
-					GrayEncodedLongVariable var = (GrayEncodedLongVariable) identity
+					GrayEncodedIntegerVariable var = (GrayEncodedIntegerVariable) identity
 							.getTrait("var" + i);
 					values[i] = var.getValue();
 				}
@@ -82,7 +84,7 @@ public class GesterTest {
 				MapIdentity id = new MapIdentity();
 				for (int i = 0; i < N; i++) {
 					id.addTrait("var" + i,
-							new GrayEncodedLongVariable(0, 10000));
+							new GrayEncodedIntegerVariable(400, 700));
 				}
 				return id;
 			}
@@ -103,7 +105,7 @@ public class GesterTest {
 				}
 				
 				for (long val : val(best)) {
-					if(Math.abs(val - 555) > 10) {
+					if(Math.abs(val - 555) > 20) {
 						return Process.CONTINUE;
 					}
 				}

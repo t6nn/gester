@@ -12,7 +12,7 @@ public class ByteUtils {
 
 	public static long toLong(byte[] bytes) {
 		long result = 0;
-		for (int i = 0; i < 8; ++i) {
+		for (int i = 0; i < bytes.length; ++i) {
 			result += ((long) bytes[i] & 0xffL) << (i * 8);
 		}
 		return result;

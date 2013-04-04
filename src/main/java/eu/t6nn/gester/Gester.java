@@ -1,9 +1,5 @@
 package eu.t6nn.gester;
 
-import java.util.Collection;
-import java.util.Queue;
-
-import eu.t6nn.gester.TestCase.Process;
 import eu.t6nn.gester.operations.InitializationStrategy;
 import eu.t6nn.gester.operations.MatingStrategy;
 import eu.t6nn.gester.operations.MutationStrategy;
@@ -14,12 +10,12 @@ import eu.t6nn.gester.operations.PruningStrategy;
 import eu.t6nn.gester.operations.RandomCrossoverMatingStrategy;
 import eu.t6nn.gester.operations.RandomInitializationStrategy;
 import eu.t6nn.gester.operations.RankWeightedRandomPairing;
+import eu.t6nn.gester.operations.SynchronousTestRunStrategy;
+import eu.t6nn.gester.operations.TestRunStrategy;
 
 public class Gester {
 	
 	private TestCase testCase;
-	
-	private int populationSize = 100;
 	
 	private MatingStrategy matingStrategy = new RandomCrossoverMatingStrategy();
 	
@@ -30,6 +26,8 @@ public class Gester {
 	private PairingStrategy pairingStrategy = new RankWeightedRandomPairing(0.5d);
 
 	private PruningStrategy pruningStrategy = new PreserveBestPruningStrategy(0.5d);
+
+	private TestRunStrategy runStrategy = new SynchronousTestRunStrategy(100);
 	
 	protected Gester(TestCase testCase) {
 		this.testCase = testCase;
@@ -65,35 +63,38 @@ public class Gester {
 		return this;
 	}
 	
-	public Gester population(int size) {
-		assert size > 0;
-		this.populationSize = size;
+	public Gester apply(TestRunStrategy strategy) {
+		assert strategy != null;
+		this.runStrategy = strategy;
 		return this;
 	}
 	
-	private Population initializePopulation() {
-		Population pop = new PopulationImpl(testCase, populationSize);
-		for(int i = 0; i < populationSize; ++i) {
-			pop.add(initializationStrategy.initialize(testCase));
-		}
-		return pop;
+	public TestCase getTestCase() {
+		return testCase;
+	}
+
+	public MatingStrategy getMatingStrategy() {
+		return matingStrategy;
+	}
+
+	public MutationStrategy getMutationStrategy() {
+		return mutationStrategy;
+	}
+
+	public InitializationStrategy getInitializationStrategy() {
+		return initializationStrategy;
+	}
+
+	public PairingStrategy getPairingStrategy() {
+		return pairingStrategy;
+	}
+
+	public PruningStrategy getPruningStrategy() {
+		return pruningStrategy;
 	}
 	
 	public void run() {
-		Population pop = initializePopulation();
-		pop.update();
-		while(testCase.tick(pop) != Process.STOP) {
-			pruningStrategy.prune(pop);
-			Queue<Identity> pairs = pairingStrategy.pair(pop, (populationSize - pop.size()) / 2);
-			while(!pairs.isEmpty()) {
-				Collection<Identity> children = matingStrategy.mate(pairs.poll(), pairs.poll());
-				for (Identity child : children) {
-					pop.add(child);
-				}
-			}
-			mutationStrategy.mutate(pop);
-			pop.update();
-		}
+		this.runStrategy.run(this);
 	}
 	
 	public static Gester test(TestCase testCase) {

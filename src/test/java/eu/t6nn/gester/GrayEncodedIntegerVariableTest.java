@@ -5,12 +5,13 @@ import org.testng.annotations.Test;
 
 import eu.t6nn.gester.utils.ByteUtils;
 import eu.t6nn.gester.utils.GrayCode;
+import eu.t6nn.gester.variables.GrayEncodedIntegerVariable;
 
-public class GrayEncodedLongVariableTest {
+public class GrayEncodedIntegerVariableTest {
 
 	@Test
 	public void testDecode() {
-		GrayEncodedLongVariable var = new GrayEncodedLongVariable(-2, 3);
+		GrayEncodedIntegerVariable var = new GrayEncodedIntegerVariable(-2, 3);
 
 		int in[] = { -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 };
 		int out[] = { -1, -2, 3, 2, 1, 0, -1, -2, -1, 0, 1, 2, 3, -2, -1 };

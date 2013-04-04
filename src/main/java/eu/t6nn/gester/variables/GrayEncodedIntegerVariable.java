@@ -1,19 +1,21 @@
-package eu.t6nn.gester;
+package eu.t6nn.gester.variables;
 
 import eu.t6nn.gester.utils.ByteUtils;
 import eu.t6nn.gester.utils.GrayCode;
 
-public class GrayEncodedLongVariable implements Variable {
+public class GrayEncodedIntegerVariable implements Variable {
 
-	private static final int VAR_SIZE = 64;
+	private final int bits;
 	private final long minVal;
 	private final long maxVal;
 	private long value;
 
-	public GrayEncodedLongVariable(long minVal, long maxVal) {
+	public GrayEncodedIntegerVariable(long minVal, long maxVal) {
 		assert maxVal - minVal < Long.MAX_VALUE : "Value range cannot exceed Long.MAX_VALUE";
 		this.minVal = minVal;
 		this.maxVal = maxVal;
+		
+		this.bits = Long.SIZE - Long.numberOfLeadingZeros(maxVal - minVal);
 	}
 
 	public long getValue() {
@@ -22,7 +24,7 @@ public class GrayEncodedLongVariable implements Variable {
 
 	@Override
 	public int size() {
-		return VAR_SIZE;
+		return bits;
 	}
 
 	@Override
@@ -31,8 +33,8 @@ public class GrayEncodedLongVariable implements Variable {
 	}
 
 	@Override
-	public GrayEncodedLongVariable clone(byte[] newState) {
-		GrayEncodedLongVariable var = new GrayEncodedLongVariable(minVal,
+	public GrayEncodedIntegerVariable clone(byte[] newState) {
+		GrayEncodedIntegerVariable var = new GrayEncodedIntegerVariable(minVal,
 				maxVal);
 		var.value = ByteUtils.toLong(newState);
 
@@ -43,6 +45,7 @@ public class GrayEncodedLongVariable implements Variable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + bits;
 		result = prime * result + (int) (maxVal ^ (maxVal >>> 32));
 		result = prime * result + (int) (minVal ^ (minVal >>> 32));
 		result = prime * result + (int) (value ^ (value >>> 32));
@@ -57,7 +60,9 @@ public class GrayEncodedLongVariable implements Variable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GrayEncodedLongVariable other = (GrayEncodedLongVariable) obj;
+		GrayEncodedIntegerVariable other = (GrayEncodedIntegerVariable) obj;
+		if (bits != other.bits)
+			return false;
 		if (maxVal != other.maxVal)
 			return false;
 		if (minVal != other.minVal)

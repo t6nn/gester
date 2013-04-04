@@ -6,7 +6,7 @@ public interface TestCase {
 		CONTINUE, STOP;
 	}
 	
-	double calculateCost(Identity identity);
+	double test(Identity identity);
 	
 	Identity newIdentity();
 	

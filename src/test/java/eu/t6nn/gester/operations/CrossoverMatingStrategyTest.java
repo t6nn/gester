@@ -6,10 +6,10 @@ import java.util.Iterator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import eu.t6nn.gester.GrayEncodedLongVariable;
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.MapIdentity;
 import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.variables.GrayEncodedIntegerVariable;
 
 public class CrossoverMatingStrategyTest {
 	@Test
@@ -24,7 +24,7 @@ public class CrossoverMatingStrategyTest {
 	
 	private void verify(MatingStrategy str) {
 		MapIdentity blank = new MapIdentity();
-		blank.addTrait("v1", new GrayEncodedLongVariable(0, 10));
+		blank.addTrait("v1", new GrayEncodedIntegerVariable(0, 10));
 
 		Identity id1 = blank.clone(blank.encode()); // all bits should be 0;
 		MutableBitBuffer ones = blank.encode();

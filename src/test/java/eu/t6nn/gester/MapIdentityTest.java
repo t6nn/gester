@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.variables.GrayEncodedIntegerVariable;
 
 public class MapIdentityTest {
 	
@@ -12,8 +13,8 @@ public class MapIdentityTest {
 	public void testInitialization() {
 		MapIdentity identity = new MapIdentity();
 		
-		GrayEncodedLongVariable var1 = new GrayEncodedLongVariable(0, 2);
-		GrayEncodedLongVariable var2 = new GrayEncodedLongVariable(0, 100);
+		GrayEncodedIntegerVariable var1 = new GrayEncodedIntegerVariable(0, 2);
+		GrayEncodedIntegerVariable var2 = new GrayEncodedIntegerVariable(0, 100);
 		
 		identity.addTrait("var1", var1);
 		identity.addTrait("var2", var2);
@@ -26,7 +27,7 @@ public class MapIdentityTest {
 	public void testClone() {
 		MapIdentity identity = new MapIdentity();
 		
-		GrayEncodedLongVariable var1 = new GrayEncodedLongVariable(0, 2);
+		GrayEncodedIntegerVariable var1 = new GrayEncodedIntegerVariable(0, 2);
 		identity.addTrait("var1", var1);
 		
 		MutableBitBuffer buf = identity.encode();

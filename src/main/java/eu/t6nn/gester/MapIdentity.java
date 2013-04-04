@@ -5,6 +5,7 @@ import org.apache.commons.collections.OrderedMap;
 import org.apache.commons.collections.map.LinkedMap;
 
 import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.variables.Variable;
 
 public class MapIdentity implements Identity {
 
@@ -60,10 +61,10 @@ public class MapIdentity implements Identity {
 	}
 
 	@Override
-	public double cachedCost(TestCase source, long key) {
-		if (cacheKey != key || cacheKey == -1) {
-			cachedCost = source.calculateCost(this);
-			cacheKey = key;
+	public double test(TestCase source, long testRun) {
+		if (cacheKey != testRun || cacheKey == -1) {
+			cachedCost = source.test(this);
+			cacheKey = testRun;
 		}
 		return cachedCost;
 	}

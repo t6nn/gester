@@ -1,6 +1,7 @@
 package eu.t6nn.gester;
 
 import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.variables.Variable;
 
 public interface Identity {
 	
@@ -12,5 +13,5 @@ public interface Identity {
 	
 	int size();
 
-	double cachedCost(TestCase source, long key);
+	double test(TestCase source, long key);
 }
