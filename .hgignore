@@ -3,3 +3,5 @@ syntax: regexp
 ^\.settings$
 ^\.classpath$
 ^\.project$
+syntax: regexp
+^test-output$
