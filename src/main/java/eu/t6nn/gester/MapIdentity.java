@@ -1,7 +1,6 @@
 package eu.t6nn.gester;
 
 import java.util.Map;
-
 import eu.t6nn.gester.utils.MutableBitBuffer;
 import eu.t6nn.gester.variables.Variable;
 
@@ -22,7 +21,7 @@ public class MapIdentity implements Identity {
 
 	@Override
 	public Variable getTrait(String name) {
-		return (Variable) decode().get(name);
+		return decode().get(name);
 	}
 	
 	private Map<String, Variable> decode() {
@@ -61,7 +60,7 @@ public class MapIdentity implements Identity {
 	
 	@Override
 	public String toString() {
-		return decode().toString();
+		return "cost=" + cachedCost + " value=" + decode().toString();
 	}
 
 }

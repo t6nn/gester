@@ -1,4 +1,4 @@
-package eu.t6nn.gester;
+package eu.t6nn.gester.variables;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
