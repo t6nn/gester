@@ -39,7 +39,7 @@ public class MapIdentity implements Identity {
 	@Override
 	public Identity clone(MutableBitBuffer newState) {
 		MapIdentity identity = new MapIdentity(idDef);
-		identity.encoded = this.encoded.clone();
+		identity.encoded = newState.clone();
 
 		return identity;
 	}
@@ -61,6 +61,44 @@ public class MapIdentity implements Identity {
 	@Override
 	public String toString() {
 		return "cost=" + cachedCost + " value=" + decode().toString();
+	}
+
+	@Override
+	public int hashCode () {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((encoded == null) ? 0 : encoded.hashCode());
+		result = prime * result + ((idDef == null) ? 0 : idDef.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals (Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		MapIdentity other = (MapIdentity) obj;
+		if (encoded == null) {
+			if (other.encoded != null) {
+				return false;
+			}
+		} else if (!encoded.equals(other.encoded)) {
+			return false;
+		}
+		if (idDef == null) {
+			if (other.idDef != null) {
+				return false;
+			}
+		} else if (!idDef.equals(other.idDef)) {
+			return false;
+		}
+		return true;
 	}
 
 }
