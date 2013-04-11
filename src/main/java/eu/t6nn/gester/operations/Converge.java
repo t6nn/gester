@@ -11,23 +11,23 @@ public class Converge {
 		// Utility class constructor
 	}
 	
-	public static ConvergenceDetectionStrategy maxAge(long ageInMillis) {
+	public static MaxAgeConvergenceStrategy maxAge(long ageInMillis) {
 		return new MaxAgeConvergenceStrategy(ageInMillis);
 	}
 	
-	public static ConvergenceDetectionStrategy maxGen(int maxGen) {
+	public static MaxGenerationsConvergenceStrategy maxGen(int maxGen) {
 		return new MaxGenerationsConvergenceStrategy(maxGen);
 	}
 	
-	public static ConvergenceDetectionStrategy topPerformer(int timesSeen) {
+	public static RepeatedBestPerformersConvergenceStrategy topPerformer(int timesSeen) {
 		return new RepeatedBestPerformersConvergenceStrategy(1, timesSeen);
 	}
 	
-	public static ConvergenceDetectionStrategy topPerformers(int performerCount, int timesSeen) {
+	public static RepeatedBestPerformersConvergenceStrategy topPerformers(int performerCount, int timesSeen) {
 		return new RepeatedBestPerformersConvergenceStrategy(performerCount, timesSeen);
 	}
 	
-	public static ConvergenceDetectionStrategy maxCost(double maxCost) {
+	public static MaxCostConvergenceStrategy maxCost(double maxCost) {
 		return new MaxCostConvergenceStrategy(maxCost);
 	}
 }

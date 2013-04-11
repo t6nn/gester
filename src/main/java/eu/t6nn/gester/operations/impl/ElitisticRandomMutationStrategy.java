@@ -10,14 +10,14 @@ import eu.t6nn.gester.Population;
 import eu.t6nn.gester.operations.MutationStrategy;
 import eu.t6nn.gester.utils.BitBuffer;
 
-public class NonElitistRandomMutationStrategy implements MutationStrategy {
+public class ElitisticRandomMutationStrategy implements MutationStrategy {
 
 	private Random random = new Random();
 	
 	private double bottomRatio;
 	private double mutationRatio;
 
-	public NonElitistRandomMutationStrategy(double bottomRatio, double mutationRatio) {
+	public ElitisticRandomMutationStrategy(double bottomRatio, double mutationRatio) {
 		this.bottomRatio = bottomRatio;
 		this.mutationRatio = mutationRatio;
 	}
