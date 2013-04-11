@@ -44,9 +44,9 @@ public class MutableBitBuffer implements Cloneable {
 	
 	private static void set(byte[] arr, int n, int bit) {
 		if (bit == 0) {
-			arr[n / 8] = (byte) (((int) arr[n / 8]) & ~(1 << (n % 8)));
+			arr[n / 8] = (byte) (arr[n / 8] & ~(1 << (n % 8)));
 		} else {
-			arr[n / 8] = (byte) (((int) arr[n / 8]) | (1 << (n % 8)));
+			arr[n / 8] = (byte) (arr[n / 8] | (1 << (n % 8)));
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class MutableBitBuffer implements Cloneable {
 		}
 		return bits.toString();
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,17 +74,22 @@ public class MutableBitBuffer implements Cloneable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		MutableBitBuffer other = (MutableBitBuffer) obj;
-		if (!Arrays.equals(bytes, other.bytes))
+		if (!Arrays.equals(bytes, other.bytes)) {
 			return false;
-		if (size != other.size)
+		}
+		if (size != other.size) {
 			return false;
+		}
 		return true;
 	}
 	
