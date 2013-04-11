@@ -14,4 +14,6 @@ public interface Identity {
 	int size();
 
 	double test(TestCase source, long key);
+	
+	double lastCost();
 }

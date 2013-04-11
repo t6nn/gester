@@ -7,7 +7,6 @@ import eu.t6nn.gester.Gester;
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.Population;
 import eu.t6nn.gester.SimplePopulation;
-import eu.t6nn.gester.TestCase.Process;
 
 public class ParallelTestRunStrategy implements TestRunStrategy {
 
@@ -37,8 +36,12 @@ public class ParallelTestRunStrategy implements TestRunStrategy {
 	@Override
 	public void run(Gester gester) {
 		Population pop = initializePopulation(gester);
+		gester.getFeedbackStrategy().afterInitialization(pop);
+
 		pop.update();
-		while(gester.getTestCase().tick(pop) != Process.STOP) {
+		int generation = 1;
+		gester.getFeedbackStrategy().afterUpdate(pop, generation);
+		while(!gester.getConvergenceStrategy().detect(pop, generation)) {
 			gester.getPruningStrategy().prune(pop);
 			Queue<Identity> pairs = gester.getPairingStrategy().pair(pop, (populationSize - pop.size()) / 2);
 			while(!pairs.isEmpty()) {
@@ -49,7 +52,10 @@ public class ParallelTestRunStrategy implements TestRunStrategy {
 			}
 			gester.getMutationStrategy().mutate(pop);
 			pop.update();
+			generation++;
+			gester.getFeedbackStrategy().afterUpdate(pop, generation);
 		}
+		gester.getFeedbackStrategy().afterConvergence(pop, generation);
 	}
 
 }

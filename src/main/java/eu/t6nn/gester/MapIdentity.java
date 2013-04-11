@@ -1,6 +1,7 @@
 package eu.t6nn.gester;
 
 import java.util.Map;
+
 import eu.t6nn.gester.utils.MutableBitBuffer;
 import eu.t6nn.gester.variables.Variable;
 
@@ -101,6 +102,11 @@ public class MapIdentity implements Identity
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public double lastCost() {
+		return cachedCost;
 	}
 
 }

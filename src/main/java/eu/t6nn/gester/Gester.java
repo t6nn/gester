@@ -1,16 +1,20 @@
 package eu.t6nn.gester;
 
+import eu.t6nn.gester.operations.ConvergenceDetectionStrategy;
+import eu.t6nn.gester.operations.FeedbackStrategy;
 import eu.t6nn.gester.operations.InitializationStrategy;
+import eu.t6nn.gester.operations.LoggerFeedbackStrategy;
 import eu.t6nn.gester.operations.MatingStrategy;
 import eu.t6nn.gester.operations.MutationStrategy;
+import eu.t6nn.gester.operations.NeverConvergeStrategy;
 import eu.t6nn.gester.operations.NonElitistRandomMutationStrategy;
 import eu.t6nn.gester.operations.PairingStrategy;
+import eu.t6nn.gester.operations.ParallelTestRunStrategy;
 import eu.t6nn.gester.operations.PreserveBestPruningStrategy;
 import eu.t6nn.gester.operations.PruningStrategy;
 import eu.t6nn.gester.operations.RandomCrossoverMatingStrategy;
 import eu.t6nn.gester.operations.RandomInitializationStrategy;
 import eu.t6nn.gester.operations.RankWeightedRandomPairing;
-import eu.t6nn.gester.operations.SynchronousTestRunStrategy;
 import eu.t6nn.gester.operations.TestRunStrategy;
 
 public class Gester {
@@ -30,8 +34,12 @@ public class Gester {
 	private PruningStrategy pruningStrategy = new PreserveBestPruningStrategy(
 			0.5d);
 
-	private TestRunStrategy runStrategy = new SynchronousTestRunStrategy(100);
+	private TestRunStrategy runStrategy = new ParallelTestRunStrategy(100);
 
+	private ConvergenceDetectionStrategy convergenceStrategy = new NeverConvergeStrategy();
+	
+	private FeedbackStrategy feedbackStrategy = new LoggerFeedbackStrategy();
+	
 	private IdentityDef idDef;
 
 	protected Gester(TestCase testCase, IdentityDef idDef) {
@@ -74,6 +82,18 @@ public class Gester {
 		this.runStrategy = strategy;
 		return this;
 	}
+	
+	public Gester apply(ConvergenceDetectionStrategy strategy) {
+		assert strategy != null;
+		this.convergenceStrategy = strategy;
+		return this;
+	}
+	
+	public Gester apply(FeedbackStrategy strategy) {
+		assert strategy != null;
+		this.feedbackStrategy = strategy;
+		return this;
+	}
 
 	public TestCase getTestCase() {
 		return testCase;
@@ -101,6 +121,14 @@ public class Gester {
 
 	public PruningStrategy getPruningStrategy() {
 		return pruningStrategy;
+	}
+
+	public ConvergenceDetectionStrategy getConvergenceStrategy() {
+		return convergenceStrategy;
+	}
+
+	public FeedbackStrategy getFeedbackStrategy() {
+		return feedbackStrategy;
 	}
 
 	public void run() {

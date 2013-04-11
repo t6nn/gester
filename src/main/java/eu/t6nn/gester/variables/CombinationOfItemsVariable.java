@@ -2,6 +2,7 @@ package eu.t6nn.gester.variables;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import eu.t6nn.gester.utils.MutableBitBuffer;
 
 
@@ -65,7 +66,7 @@ public class CombinationOfItemsVariable<T> implements Variable
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		CombinationOfItemsVariable other = (CombinationOfItemsVariable) obj;
+		CombinationOfItemsVariable<?> other = (CombinationOfItemsVariable<?>) obj;
 		if (bits == null) {
 			if (other.bits != null) {
 				return false;
