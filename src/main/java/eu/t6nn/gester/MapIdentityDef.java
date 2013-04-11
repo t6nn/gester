@@ -8,7 +8,7 @@ import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.OrderedMap;
 import org.apache.commons.collections.map.LinkedMap;
 
-import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.utils.BitBuffer;
 import eu.t6nn.gester.variables.Variable;
 
 public class MapIdentityDef implements IdentityDef {
@@ -23,7 +23,7 @@ public class MapIdentityDef implements IdentityDef {
 	}
 
 	@Override
-	public Map<String, Variable> decode(MutableBitBuffer buffer) {
+	public Map<String, Variable> decode(BitBuffer buffer) {
 		Map<String, Variable> decoded = new HashMap<>(traits.size());
 		MapIterator it = traits.mapIterator();
 		int ptr = 0;

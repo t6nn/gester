@@ -9,7 +9,9 @@ import org.testng.annotations.Test;
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.MapIdentity;
 import eu.t6nn.gester.MapIdentityDef;
-import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.operations.impl.RandomCrossoverMatingStrategy;
+import eu.t6nn.gester.operations.impl.SinglePointCrossoverMatingStrategy;
+import eu.t6nn.gester.utils.BitBuffer;
 import eu.t6nn.gester.variables.GrayEncodedIntegerVariable;
 
 public class CrossoverMatingStrategyTest {
@@ -30,7 +32,7 @@ public class CrossoverMatingStrategyTest {
 		MapIdentity blank = new MapIdentity(def);
 
 		Identity id1 = blank.clone(blank.encode()); // all bits should be 0;
-		MutableBitBuffer ones = blank.encode();
+		BitBuffer ones = blank.encode();
 		for (int i = 0; i < ones.size(); ++i) {
 			ones.set(i, 1);
 		}
@@ -44,8 +46,8 @@ public class CrossoverMatingStrategyTest {
 
 		Iterator<Identity> idIter = ids.iterator();
 
-		MutableBitBuffer buf1 = idIter.next().encode();
-		MutableBitBuffer buf2 = idIter.next().encode();
+		BitBuffer buf1 = idIter.next().encode();
+		BitBuffer buf2 = idIter.next().encode();
 
 		System.out.println(buf1);
 		System.out.println(buf2);

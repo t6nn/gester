@@ -1,4 +1,4 @@
-package eu.t6nn.gester.operations;
+package eu.t6nn.gester.operations.impl;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -7,7 +7,8 @@ import java.util.Random;
 
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.Population;
-import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.operations.MutationStrategy;
+import eu.t6nn.gester.utils.BitBuffer;
 
 public class NonElitistRandomMutationStrategy implements MutationStrategy {
 
@@ -35,7 +36,7 @@ public class NonElitistRandomMutationStrategy implements MutationStrategy {
 		List<Identity> mutatedIdentities = new LinkedList<>();
 		
 		int lastkey = -1;
-		MutableBitBuffer lastState = null;
+		BitBuffer lastState = null;
 		for (int i = mutationCount - 1; i >= 0; --i) {
 			int key = keys[i];
 			if(key != lastkey) {

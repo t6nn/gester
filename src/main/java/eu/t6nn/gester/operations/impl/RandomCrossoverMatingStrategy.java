@@ -1,8 +1,8 @@
-package eu.t6nn.gester.operations;
+package eu.t6nn.gester.operations.impl;
 
 import java.util.Random;
 
-import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.utils.BitBuffer;
 
 public class RandomCrossoverMatingStrategy extends
 		BitmapCrossoverMatingStrategy {
@@ -10,8 +10,8 @@ public class RandomCrossoverMatingStrategy extends
 	private Random random = new Random();
 	
 	@Override
-	protected MutableBitBuffer generateCrossover(int size) {
-		MutableBitBuffer buffer = new MutableBitBuffer(size);
+	protected BitBuffer generateCrossover(int size) {
+		BitBuffer buffer = new BitBuffer(size);
 		if(size >= 8) {
 			byte[] bytes = new byte[size / 8];
 			random.nextBytes(bytes);

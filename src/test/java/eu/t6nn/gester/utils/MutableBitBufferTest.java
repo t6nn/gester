@@ -7,7 +7,7 @@ public class MutableBitBufferTest {
 	
 	@Test
 	public void testAppend() {
-		MutableBitBuffer buffer = new MutableBitBuffer(25); // 4 bytes
+		BitBuffer buffer = new BitBuffer(25); // 4 bytes
 		buffer.append(new byte[]{1}, 1); // 0000 0001
 		Assert.assertEquals(buffer.getBytes().length, 4);
 		Assert.assertEquals(buffer.getBytes(), new byte[]{1, 0, 0, 0});
@@ -23,7 +23,7 @@ public class MutableBitBufferTest {
 	
 	@Test
 	public void testSetGet() {
-		MutableBitBuffer buffer = new MutableBitBuffer(25); // 4 bytes
+		BitBuffer buffer = new BitBuffer(25); // 4 bytes
 		for(int i = 0; i < 25; ++i) {
 			Assert.assertEquals(buffer.get(i), 0);
 			buffer.set(i, 1);
@@ -35,7 +35,7 @@ public class MutableBitBufferTest {
 	
 	@Test
 	public void testRange() {
-		MutableBitBuffer buffer = new MutableBitBuffer(25); // 4 bytes
+		BitBuffer buffer = new BitBuffer(25); // 4 bytes
 		for(int i = 0; i < 25; ++i) {
 			buffer.set(i, 1);
 		}

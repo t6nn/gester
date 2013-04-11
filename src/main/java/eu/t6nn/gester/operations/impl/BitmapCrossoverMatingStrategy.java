@@ -1,24 +1,25 @@
-package eu.t6nn.gester.operations;
+package eu.t6nn.gester.operations.impl;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import eu.t6nn.gester.Identity;
-import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.operations.MatingStrategy;
+import eu.t6nn.gester.utils.BitBuffer;
 
 public abstract class BitmapCrossoverMatingStrategy implements MatingStrategy {
 	
-	protected abstract MutableBitBuffer generateCrossover(int size);
+	protected abstract BitBuffer generateCrossover(int size);
 	
 	@Override
 	public Collection<Identity> mate(Identity id1, Identity id2) {
 		assert id1.size() == id2.size();
 		
-		MutableBitBuffer crossover = generateCrossover(id1.size());
+		BitBuffer crossover = generateCrossover(id1.size());
 		assert crossover.size() == id1.size();
 		
-		MutableBitBuffer state1 = id1.encode();
-		MutableBitBuffer state2 = id2.encode();
+		BitBuffer state1 = id1.encode();
+		BitBuffer state2 = id2.encode();
 		
 		for(int i = 0; i < crossover.size(); ++i) {
 			// Cross over the bits where crossover[n] == 0

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.Population;
+import eu.t6nn.gester.operations.impl.RepeatedBestPerformersConvergenceStrategy;
 
 public class RepeatedBestPerformersConvergenceStrategyTest {
 	

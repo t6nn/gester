@@ -3,19 +3,19 @@ package eu.t6nn.gester;
 import eu.t6nn.gester.operations.ConvergenceDetectionStrategy;
 import eu.t6nn.gester.operations.FeedbackStrategy;
 import eu.t6nn.gester.operations.InitializationStrategy;
-import eu.t6nn.gester.operations.LoggerFeedbackStrategy;
 import eu.t6nn.gester.operations.MatingStrategy;
 import eu.t6nn.gester.operations.MutationStrategy;
-import eu.t6nn.gester.operations.NeverConvergeStrategy;
-import eu.t6nn.gester.operations.NonElitistRandomMutationStrategy;
 import eu.t6nn.gester.operations.PairingStrategy;
-import eu.t6nn.gester.operations.ParallelTestRunStrategy;
-import eu.t6nn.gester.operations.PreserveBestPruningStrategy;
 import eu.t6nn.gester.operations.PruningStrategy;
-import eu.t6nn.gester.operations.RandomCrossoverMatingStrategy;
-import eu.t6nn.gester.operations.RandomInitializationStrategy;
-import eu.t6nn.gester.operations.RankWeightedRandomPairing;
 import eu.t6nn.gester.operations.TestRunStrategy;
+import eu.t6nn.gester.operations.impl.LoggerFeedbackStrategy;
+import eu.t6nn.gester.operations.impl.NeverConvergeStrategy;
+import eu.t6nn.gester.operations.impl.NonElitistRandomMutationStrategy;
+import eu.t6nn.gester.operations.impl.ParallelTestRunStrategy;
+import eu.t6nn.gester.operations.impl.PreserveBestPruningStrategy;
+import eu.t6nn.gester.operations.impl.RandomCrossoverMatingStrategy;
+import eu.t6nn.gester.operations.impl.RandomInitializationStrategy;
+import eu.t6nn.gester.operations.impl.RankWeightedRandomPairing;
 
 public class Gester {
 

@@ -57,7 +57,7 @@ public class GesterTest {
 			}
 		};
 
-		Gester.test(test, id).apply(Converge.maxCost(-0.95d * Math.pow(dist.value(555), N))).run();
+		Gester.test(test, id).apply(Converge.maxCost(-0.98d * Math.pow(dist.value(555), N))).run();
 	}
 
 	private long[] val(Identity identity, int varCount) {

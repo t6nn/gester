@@ -1,5 +1,10 @@
 package eu.t6nn.gester.operations;
 
+import eu.t6nn.gester.operations.impl.MaxAgeConvergenceStrategy;
+import eu.t6nn.gester.operations.impl.MaxCostConvergenceStrategy;
+import eu.t6nn.gester.operations.impl.MaxGenerationsConvergenceStrategy;
+import eu.t6nn.gester.operations.impl.RepeatedBestPerformersConvergenceStrategy;
+
 public class Converge {
 	
 	private Converge() {

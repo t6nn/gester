@@ -2,14 +2,14 @@ package eu.t6nn.gester;
 
 import java.util.Map;
 
-import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.utils.BitBuffer;
 import eu.t6nn.gester.variables.Variable;
 
 public class MapIdentity implements Identity
 {
 
 	private final IdentityDef idDef;
-	private MutableBitBuffer encoded;
+	private BitBuffer encoded;
 
 	private double cachedCost = 0.0D;
 	private long cacheKey = -1;
@@ -18,7 +18,7 @@ public class MapIdentity implements Identity
 
 	public MapIdentity (IdentityDef idDef) {
 		this.idDef = idDef;
-		this.encoded = new MutableBitBuffer(idDef.size());
+		this.encoded = new BitBuffer(idDef.size());
 	}
 
 	@Override
@@ -34,12 +34,12 @@ public class MapIdentity implements Identity
 	}
 
 	@Override
-	public MutableBitBuffer encode () {
+	public BitBuffer encode () {
 		return encoded.clone();
 	}
 
 	@Override
-	public Identity clone (MutableBitBuffer newState) {
+	public Identity clone (BitBuffer newState) {
 		MapIdentity identity = new MapIdentity(idDef);
 		identity.encoded = newState.clone();
 

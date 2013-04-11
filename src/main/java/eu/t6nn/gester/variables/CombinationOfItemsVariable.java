@@ -3,18 +3,18 @@ package eu.t6nn.gester.variables;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import eu.t6nn.gester.utils.MutableBitBuffer;
+import eu.t6nn.gester.utils.BitBuffer;
 
 
 public class CombinationOfItemsVariable<T> implements Variable
 {
 
 	private Collection<T> values;
-	private MutableBitBuffer bits;
+	private BitBuffer bits;
 
 	public CombinationOfItemsVariable (Collection<T> values) {
 		this.values = values;
-		this.bits = new MutableBitBuffer(values.size());
+		this.bits = new BitBuffer(values.size());
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ public class CombinationOfItemsVariable<T> implements Variable
 	@Override
 	public CombinationOfItemsVariable<T> clone (byte[] newState) {
 		CombinationOfItemsVariable<T> var = new CombinationOfItemsVariable<>(values);
-		var.bits = new MutableBitBuffer(values.size());
+		var.bits = new BitBuffer(values.size());
 		var.bits.append(newState, values.size());
 		return var;
 	}

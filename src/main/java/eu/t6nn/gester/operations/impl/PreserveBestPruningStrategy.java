@@ -1,6 +1,7 @@
-package eu.t6nn.gester.operations;
+package eu.t6nn.gester.operations.impl;
 
 import eu.t6nn.gester.Population;
+import eu.t6nn.gester.operations.PruningStrategy;
 
 public class PreserveBestPruningStrategy implements PruningStrategy {
 

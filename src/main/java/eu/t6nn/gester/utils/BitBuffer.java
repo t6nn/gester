@@ -2,7 +2,7 @@ package eu.t6nn.gester.utils;
 
 import java.util.Arrays;
 
-public class MutableBitBuffer implements Cloneable {
+public class BitBuffer implements Cloneable {
 
 	private byte[] bytes;
 
@@ -10,7 +10,7 @@ public class MutableBitBuffer implements Cloneable {
 	
 	private int writePtr = 0;
 
-	public MutableBitBuffer(int size) {
+	public BitBuffer(int size) {
 		bytes = new byte[size / 8 + 1];
 		this.size = size;
 	}
@@ -83,7 +83,7 @@ public class MutableBitBuffer implements Cloneable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		MutableBitBuffer other = (MutableBitBuffer) obj;
+		BitBuffer other = (BitBuffer) obj;
 		if (!Arrays.equals(bytes, other.bytes)) {
 			return false;
 		}
@@ -94,8 +94,8 @@ public class MutableBitBuffer implements Cloneable {
 	}
 	
 	@Override
-	public MutableBitBuffer clone() {
-		MutableBitBuffer clone = new MutableBitBuffer(size);
+	public BitBuffer clone() {
+		BitBuffer clone = new BitBuffer(size);
 		clone.writePtr = this.writePtr;
 		clone.bytes = Arrays.copyOf(bytes, bytes.length);
 		return clone;

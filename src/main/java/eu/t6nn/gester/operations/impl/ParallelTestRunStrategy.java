@@ -1,4 +1,4 @@
-package eu.t6nn.gester.operations;
+package eu.t6nn.gester.operations.impl;
 
 import java.util.Collection;
 import java.util.Queue;
@@ -7,6 +7,7 @@ import eu.t6nn.gester.Gester;
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.Population;
 import eu.t6nn.gester.SimplePopulation;
+import eu.t6nn.gester.operations.TestRunStrategy;
 
 public class ParallelTestRunStrategy implements TestRunStrategy {
 

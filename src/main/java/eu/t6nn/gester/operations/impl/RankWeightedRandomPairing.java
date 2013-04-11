@@ -1,4 +1,4 @@
-package eu.t6nn.gester.operations;
+package eu.t6nn.gester.operations.impl;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -6,6 +6,7 @@ import java.util.Random;
 
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.Population;
+import eu.t6nn.gester.operations.PairingStrategy;
 
 public class RankWeightedRandomPairing implements PairingStrategy {
 
