@@ -7,7 +7,7 @@ public class Pair {
 		
 	}
 	
-	public static RankWeightedRandomPairing weighted(double keepRatio) {
-		return new RankWeightedRandomPairing(keepRatio);
+	public static RankWeightedRandomPairing weighted() {
+		return new RankWeightedRandomPairing();
 	}
 }

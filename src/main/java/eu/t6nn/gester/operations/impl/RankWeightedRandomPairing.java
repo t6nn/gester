@@ -11,21 +11,19 @@ import eu.t6nn.gester.operations.PairingStrategy;
 public class RankWeightedRandomPairing implements PairingStrategy {
 
 	private Random random = new Random();
-	private double keepRatio;
 	
-	public RankWeightedRandomPairing(double keepRatio) {
-		this.keepRatio = keepRatio;
+	public RankWeightedRandomPairing() {
 	}
 	
 	@Override
 	public Queue<Identity> pair(Population population, int pairCount) {
-		int keep = (int)((double)population.size() * keepRatio);
+		int size = population.size();
 
 		Queue<Identity> ids = new LinkedList<>();
 		for(int i = 0; i < pairCount; ++i) {
-			int p1 = pick(keep), p2;
+			int p1 = pick(size), p2;
 			do {
-				p2 = pick(keep);
+				p2 = pick(size);
 			} while (p2 == p1);
 			
 			ids.add(population.get(p1));
@@ -34,19 +32,19 @@ public class RankWeightedRandomPairing implements PairingStrategy {
 		return ids;
 	}
 	
-	private int pick(int keep) {
+	private int pick(int size) {
 		double rnd = random.nextDouble();
 		double cumulative = 0.0D;
-		double rankTotal = (keep * (1d + keep) / 2d);
+		double rankTotal = (size * (1d + size) / 2d);
 		
-		for(int rank = 0; rank < keep; rank++) {
-			cumulative += (keep - rank) / rankTotal;
-			if(rnd <= cumulative) {
+		for(int rank = 0; rank < size; rank++) {
+			cumulative += (size - rank) / rankTotal;
+			if(rnd < cumulative) {
 				return rank;
 			}
 		}
 		
-		return keep - 1;
+		return size - 1;
 	}
 
 }

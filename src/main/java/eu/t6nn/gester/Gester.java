@@ -8,9 +8,9 @@ import eu.t6nn.gester.operations.MutationStrategy;
 import eu.t6nn.gester.operations.PairingStrategy;
 import eu.t6nn.gester.operations.PruningStrategy;
 import eu.t6nn.gester.operations.TestRunStrategy;
+import eu.t6nn.gester.operations.impl.ElitisticRandomMutationStrategy;
 import eu.t6nn.gester.operations.impl.LoggerFeedbackStrategy;
 import eu.t6nn.gester.operations.impl.NeverConvergeStrategy;
-import eu.t6nn.gester.operations.impl.ElitisticRandomMutationStrategy;
 import eu.t6nn.gester.operations.impl.ParallelTestRunStrategy;
 import eu.t6nn.gester.operations.impl.PreserveBestPruningStrategy;
 import eu.t6nn.gester.operations.impl.RandomCrossoverMatingStrategy;
@@ -28,8 +28,7 @@ public class Gester {
 
 	private InitializationStrategy initializationStrategy = new RandomInitializationStrategy();
 
-	private PairingStrategy pairingStrategy = new RankWeightedRandomPairing(
-			0.5d);
+	private PairingStrategy pairingStrategy = new RankWeightedRandomPairing();
 
 	private PruningStrategy pruningStrategy = new PreserveBestPruningStrategy(
 			0.5d);
