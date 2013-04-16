@@ -1,7 +1,7 @@
 package eu.t6nn.gester;
 
 import java.util.Map;
-
+import eu.t6nn.gester.exceptions.GesterException;
 import eu.t6nn.gester.utils.BitBuffer;
 import eu.t6nn.gester.variables.Variable;
 
@@ -21,9 +21,10 @@ public class MapIdentity implements Identity
 		this.encoded = new BitBuffer(idDef.size());
 	}
 
+	@SuppressWarnings ("unchecked")
 	@Override
-	public Variable getTrait (String name) {
-		return decode().get(name);
+	public <T extends Variable> T getTrait (String name) {
+		return (T) decode().get(name);
 	}
 
 	private Map<String, Variable> decode () {
@@ -54,8 +55,12 @@ public class MapIdentity implements Identity
 	@Override
 	public double test (TestCase source, long testRun) {
 		if (cacheKey != testRun || cacheKey == -1) {
-			cachedCost = source.test(this);
-			cacheKey = testRun;
+			try {
+				cachedCost = source.test(this);
+				cacheKey = testRun;
+			} catch (Exception e) {
+				throw new GesterException(e);
+			}
 		}
 		return cachedCost;
 	}

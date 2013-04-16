@@ -21,6 +21,10 @@ public class GrayEncodedIntegerVariable implements Variable {
 	public long getValue() {
 		return minVal + Math.abs(GrayCode.fromBinary(value) % (maxVal - minVal + 1));
 	}
+	
+	public int getInt() {
+		return (int) getValue();
+	}
 
 	@Override
 	public int size() {

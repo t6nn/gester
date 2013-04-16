@@ -9,7 +9,7 @@ public interface Identity {
 	
 	Identity clone(BitBuffer newState);
 	
-	Variable getTrait(String name);
+	<T extends Variable> T getTrait(String name);
 	
 	int size();
 

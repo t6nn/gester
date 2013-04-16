@@ -3,11 +3,9 @@ package eu.t6nn.gester;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.OrderedMap;
 import org.apache.commons.collections.map.LinkedMap;
-
 import eu.t6nn.gester.utils.BitBuffer;
 import eu.t6nn.gester.variables.Variable;
 
@@ -16,10 +14,13 @@ public class MapIdentityDef implements IdentityDef {
 	private OrderedMap traits = new LinkedMap();
 	private int totalSize = 0;
 
+	@Override
 	@SuppressWarnings("unchecked")
-	public void addTrait(String name, Variable trait) {
+	public <T extends Variable> Trait<T> addTrait(String name, Variable trait) {
 		traits.put(name, trait);
 		totalSize += trait.size();
+		
+		return new NamedTrait<T>(name, (Class<T>)trait.getClass());
 	}
 
 	@Override
