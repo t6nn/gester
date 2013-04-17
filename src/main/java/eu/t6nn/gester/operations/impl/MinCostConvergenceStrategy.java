@@ -2,18 +2,18 @@ package eu.t6nn.gester.operations.impl;
 
 import eu.t6nn.gester.Population;
 
-public class MaxCostConvergenceStrategy extends
+public class MinCostConvergenceStrategy extends
 		AbstractConvergenceDetectionStrategy {
 
-	private double maxCost;
+	private double minCost;
 
-	public MaxCostConvergenceStrategy(double maxCost) {
-		this.maxCost = maxCost;
+	public MinCostConvergenceStrategy(double maxCost) {
+		this.minCost = maxCost;
 	}
 	
 	@Override
 	public boolean detect(Population pop, int genIndex) {
-		return pop.get(0).lastCost() < maxCost;
+		return pop.get(0).lastCost() < minCost;
 	}
 
 }

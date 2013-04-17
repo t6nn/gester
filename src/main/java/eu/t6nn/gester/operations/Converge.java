@@ -1,7 +1,7 @@
 package eu.t6nn.gester.operations;
 
 import eu.t6nn.gester.operations.impl.MaxAgeConvergenceStrategy;
-import eu.t6nn.gester.operations.impl.MaxCostConvergenceStrategy;
+import eu.t6nn.gester.operations.impl.MinCostConvergenceStrategy;
 import eu.t6nn.gester.operations.impl.MaxGenerationsConvergenceStrategy;
 import eu.t6nn.gester.operations.impl.RepeatedBestPerformersConvergenceStrategy;
 
@@ -27,7 +27,7 @@ public class Converge {
 		return new RepeatedBestPerformersConvergenceStrategy(performerCount, timesSeen);
 	}
 	
-	public static MaxCostConvergenceStrategy maxCost(double maxCost) {
-		return new MaxCostConvergenceStrategy(maxCost);
+	public static MinCostConvergenceStrategy minCost(double minCost) {
+		return new MinCostConvergenceStrategy(minCost);
 	}
 }
