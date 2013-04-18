@@ -9,6 +9,7 @@
 	<description>A test suite minimization framework for the purpose of discovering the most efficient test cases in a given domain. Uses a genetic algorithm for minimization.</description>
 	<modules>
 		<module>gester-core</module>
+		<module>gester-example-webapp</module>
 	</modules>
 	<build>
 		<pluginManagement>
