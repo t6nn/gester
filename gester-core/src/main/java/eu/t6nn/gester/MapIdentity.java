@@ -62,7 +62,6 @@ public class MapIdentity implements Identity
 			if (cacheKey != testRun || cacheKey == -1) {
 				try {
 					cachedCost = source.test(this);
-					System.out.println("Test result: " + cachedCost);
 					cacheKey = testRun;
 				} catch (Exception e) {
 					throw new GesterException(e);
