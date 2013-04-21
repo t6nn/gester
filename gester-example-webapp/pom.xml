@@ -75,6 +75,11 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>eu.t6nn.gester</groupId>
+			<artifactId>gester-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>gester-example-webapp</finalName>

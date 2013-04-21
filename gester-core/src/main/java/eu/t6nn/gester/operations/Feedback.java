@@ -1,5 +1,6 @@
 package eu.t6nn.gester.operations;
 
+import eu.t6nn.gester.operations.impl.LocalDatabaseFeedbackStrategy;
 import eu.t6nn.gester.operations.impl.LoggerFeedbackStrategy;
 
 public class Feedback {
@@ -11,4 +12,7 @@ public class Feedback {
 		return new LoggerFeedbackStrategy();
 	}
 	
+	public static LocalDatabaseFeedbackStrategy db(String dbName) {
+		return new LocalDatabaseFeedbackStrategy(dbName);
+	}
 }

@@ -17,7 +17,7 @@ public class MaxAgeConvergenceStrategy extends AbstractConvergenceDetectionStrat
 			firstTick = System.nanoTime();
 		}
 		
-		return ((System.nanoTime() - firstTick) / 1000L) > maxAge;
+		return ((System.nanoTime() - firstTick) / 1000000L) > maxAge;
 	}
 
 }

@@ -65,6 +65,11 @@ public class LocalDatabaseFeedbackStrategy extends AbstractFeedbackStrategy {
 			execute("CREATE TABLE IF NOT EXISTS Variable "
 					+ "(Run INTEGER, Generation INTEGER, Rank INTEGER, "
 					+ "Cost DOUBLE, Name VARCHAR(100), Value VARCHAR(1000));");
+			execute("CREATE INDEX idx_cost ON Variable(Cost)");
+			execute("CREATE INDEX idx_name ON Variable(Name)");
+			execute("CREATE INDEX idx_value ON Variable(Value)");
+			execute("CREATE INDEX idx_gen ON Variable(Generation)");
+			execute("CREATE INDEX idx_rank ON Variable(Rank)");
 		} catch (SQLException e) {
 			throw new GesterException("Problem setting up the database (connection).", e);
 		}
