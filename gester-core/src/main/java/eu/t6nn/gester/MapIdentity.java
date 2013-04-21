@@ -1,6 +1,7 @@
 package eu.t6nn.gester;
 
 import java.util.Map;
+
 import eu.t6nn.gester.exceptions.GesterException;
 import eu.t6nn.gester.utils.BitBuffer;
 import eu.t6nn.gester.variables.Variable;
@@ -15,6 +16,8 @@ public class MapIdentity implements Identity
 	private long cacheKey = -1;
 
 	private Map<String, Variable> decodeCache;
+	
+	private Object costLock = new Object();
 
 	public MapIdentity (IdentityDef idDef) {
 		this.idDef = idDef;
@@ -27,7 +30,8 @@ public class MapIdentity implements Identity
 		return (T) decode().get(name);
 	}
 
-	private Map<String, Variable> decode () {
+	@Override
+	public Map<String, Variable> decode () {
 		if (decodeCache == null) {
 			decodeCache = idDef.decode(encoded);
 		}
@@ -54,20 +58,25 @@ public class MapIdentity implements Identity
 
 	@Override
 	public double test (TestCase source, long testRun) {
-		if (cacheKey != testRun || cacheKey == -1) {
-			try {
-				cachedCost = source.test(this);
-				cacheKey = testRun;
-			} catch (Exception e) {
-				throw new GesterException(e);
+		synchronized (costLock) {
+			if (cacheKey != testRun || cacheKey == -1) {
+				try {
+					cachedCost = source.test(this);
+					System.out.println("Test result: " + cachedCost);
+					cacheKey = testRun;
+				} catch (Exception e) {
+					throw new GesterException(e);
+				}
 			}
+			return cachedCost;
 		}
-		return cachedCost;
 	}
 
 	@Override
 	public String toString () {
-		return "cost=" + cachedCost + " value=" + decode().toString();
+		synchronized (costLock) {
+			return "cost=" + cachedCost + " value=" + decode().toString();
+		}
 	}
 
 	@Override
@@ -111,7 +120,9 @@ public class MapIdentity implements Identity
 
 	@Override
 	public double lastCost() {
-		return cachedCost;
+		synchronized (costLock) {
+			return cachedCost;
+		}
 	}
 
 }

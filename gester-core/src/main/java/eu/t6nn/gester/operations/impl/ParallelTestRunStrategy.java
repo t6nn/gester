@@ -7,6 +7,13 @@ import eu.t6nn.gester.Gester;
 import eu.t6nn.gester.Identity;
 import eu.t6nn.gester.Population;
 import eu.t6nn.gester.SimplePopulation;
+import eu.t6nn.gester.operations.ConvergenceDetectionStrategy;
+import eu.t6nn.gester.operations.FeedbackStrategy;
+import eu.t6nn.gester.operations.InitializationStrategy;
+import eu.t6nn.gester.operations.MatingStrategy;
+import eu.t6nn.gester.operations.MutationStrategy;
+import eu.t6nn.gester.operations.PairingStrategy;
+import eu.t6nn.gester.operations.PruningStrategy;
 import eu.t6nn.gester.operations.TestRunStrategy;
 
 public class ParallelTestRunStrategy implements TestRunStrategy {
@@ -29,7 +36,7 @@ public class ParallelTestRunStrategy implements TestRunStrategy {
 	private Population initializePopulation(Gester gester) {
 		Population pop = new SimplePopulation(gester.getTestCase(), gester.getIdentityDef(), populationSize, poolSize);
 		for(int i = 0; i < populationSize; ++i) {
-			pop.add(gester.getInitializationStrategy().initialize(gester.getIdentityDef()));
+			pop.add(gester.strategy(InitializationStrategy.class).initialize(gester.getIdentityDef()));
 		}
 		return pop;
 	}
@@ -37,26 +44,27 @@ public class ParallelTestRunStrategy implements TestRunStrategy {
 	@Override
 	public void run(Gester gester) {
 		Population pop = initializePopulation(gester);
-		gester.getFeedbackStrategy().afterInitialization(pop);
+		gester.strategy(FeedbackStrategy.class).afterInitialization(pop);
 
 		pop.update();
 		int generation = 1;
-		gester.getFeedbackStrategy().afterUpdate(pop, generation);
-		while(!gester.getConvergenceStrategy().detect(pop, generation)) {
-			gester.getPruningStrategy().prune(pop);
-			Queue<Identity> pairs = gester.getPairingStrategy().pair(pop, (populationSize - pop.size()) / 2);
+		gester.strategy(FeedbackStrategy.class).afterUpdate(pop, generation);
+		while(!gester.strategy(ConvergenceDetectionStrategy.class).detect(pop, generation)) {
+			gester.strategy(PruningStrategy.class).prune(pop);
+			gester.strategy(FeedbackStrategy.class).afterPrune(pop, generation);
+			Queue<Identity> pairs = gester.strategy(PairingStrategy.class).pair(pop, (populationSize - pop.size()) / 2);
 			while(!pairs.isEmpty()) {
-				Collection<Identity> children = gester.getMatingStrategy().mate(pairs.poll(), pairs.poll());
+				Collection<Identity> children = gester.strategy(MatingStrategy.class).mate(pairs.poll(), pairs.poll());
 				for (Identity child : children) {
 					pop.add(child);
 				}
 			}
-			gester.getMutationStrategy().mutate(pop);
+			gester.strategy(MutationStrategy.class).mutate(pop);
 			pop.update();
 			generation++;
-			gester.getFeedbackStrategy().afterUpdate(pop, generation);
+			gester.strategy(FeedbackStrategy.class).afterUpdate(pop, generation);
 		}
-		gester.getFeedbackStrategy().afterConvergence(pop, generation);
+		gester.strategy(FeedbackStrategy.class).afterConvergence(pop, generation);
 	}
 
 }

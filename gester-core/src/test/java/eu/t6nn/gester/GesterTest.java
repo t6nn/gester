@@ -1,16 +1,20 @@
 package eu.t6nn.gester;
 
+import java.sql.SQLException;
+
 import org.apache.commons.math3.analysis.function.Gaussian;
 import org.testng.annotations.Test;
 
 import eu.t6nn.gester.operations.Converge;
+import eu.t6nn.gester.operations.impl.LocalDatabaseFeedbackStrategy;
+import eu.t6nn.gester.operations.impl.LoggerFeedbackStrategy;
 import eu.t6nn.gester.variables.GrayEncodedIntegerVariable;
 
 public class GesterTest {
-
+	
 	@Test
-	public void testOneVariableMinimizer() {
-
+	public void testOneVariableMinimizer() throws SQLException {
+		
 		final Gaussian dist = new Gaussian(555, 0.2);
 
 		MapIdentityDef def = new MapIdentityDef();
@@ -31,7 +35,12 @@ public class GesterTest {
 
 		};
 
-		Gester.test(test, def).apply(Converge.minCost(-95 * dist.value(555))).run();
+		Gester.test(test, def)
+				.apply(new LocalDatabaseFeedbackStrategy(
+						"c:\\temp\\testdb1\\testdb1").prunedOnly(true)
+						.clearDatabase(true)
+						.chain(new LoggerFeedbackStrategy()))
+				.apply(Converge.minCost(-95 * dist.value(555))).run();
 	}
 
 	@Test
@@ -57,7 +66,9 @@ public class GesterTest {
 			}
 		};
 
-		Gester.test(test, id).apply(Converge.minCost(-0.98d * Math.pow(dist.value(555), N))).run();
+		Gester.test(test, id)
+				.apply(Converge.minCost(-0.98d * Math.pow(dist.value(555), N)))
+				.run();
 	}
 
 	private long[] val(Identity identity, int varCount) {

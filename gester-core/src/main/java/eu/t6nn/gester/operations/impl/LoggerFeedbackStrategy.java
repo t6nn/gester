@@ -25,4 +25,9 @@ public class LoggerFeedbackStrategy extends AbstractFeedbackStrategy {
 		LOG.info("Best solution: {}", pop.get(0));
 	}
 
+	@Override
+	public void afterPrune(Population pop, int generation) {
+		
+	}
+
 }
