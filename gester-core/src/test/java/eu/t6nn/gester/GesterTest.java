@@ -37,7 +37,7 @@ public class GesterTest {
 
 		Gester.test(test, def)
 				.apply(new LocalDatabaseFeedbackStrategy(
-						"c:\\temp\\testdb1\\testdb1").prunedOnly(true)
+						"target/testdb1").prunedOnly(true)
 						.clearDatabase(true)
 						.chain(new LoggerFeedbackStrategy()))
 				.apply(Converge.minCost(-95 * dist.value(555))).run();
